@@ -3,6 +3,8 @@ const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const Manager = require("./lib/Manager.js");
 
+const render = require("./lib/htmlRenderer");
+
 const questions = inquirer.prompt([{
     type: "input",
     message: "Who is your Manager?",
@@ -98,4 +100,6 @@ questions.then(function(prompt) {
 console.log(manager);
 console.log(engineer);
 console.log(intern);
+
+render();
 })
