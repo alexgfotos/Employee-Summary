@@ -50,6 +50,24 @@ async function mainPrompt() {
 
     }
 
+    if (answers.role === "engineer") {
+        const engineerAnswers = await engineerPrompt();
+        const engineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.github)
+        console.log(engineer);
+
+        continuePrompt()
+
+    }
+
+    if (answers.role === "intern") {
+        const internAnswers = await internPrompt();
+        const intern = new Intern(answers.name, answers.id, answers.email, internAnswers.school)
+        console.log(intern);
+
+        continuePrompt()
+
+    }
+
 }
 
 
@@ -59,6 +77,32 @@ async function managerPrompt() {
             type: "input",
             message: "What is your office number?",
             name: "office"
+        }
+
+    ])
+
+    return answers
+}
+
+async function engineerPrompt() {
+    const answers = await inquirer.prompt([
+        {
+            type: "input",
+            message: "What is your Github username?",
+            name: "github"
+        }
+
+    ])
+
+    return answers
+}
+
+async function internPrompt() {
+    const answers = await inquirer.prompt([
+        {
+            type: "input",
+            message: "Which school do you attend?",
+            name: "school"
         }
 
     ])
