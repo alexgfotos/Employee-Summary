@@ -43,8 +43,12 @@ async function mainPrompt() {
 
     if (answers.role === "manager") {
         const managerAnswers = await managerPrompt();
-        const manager = new Manager(answers.name, answers.id, answers.email, managerAnswers.office)
-        console.log(manager);
+        const manager = new Manager(answers.name, answers.id, answers.email, managerAnswers.office, answers.role)
+
+        fs.appendFile('employees.json', `\n ${JSON.stringify(manager)}\n`, (err) => {
+            if (err) throw err;
+            console.log('New manager saved!');
+        });
 
         continuePrompt()
 
@@ -52,8 +56,12 @@ async function mainPrompt() {
 
     if (answers.role === "engineer") {
         const engineerAnswers = await engineerPrompt();
-        const engineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.github)
-        console.log(engineer);
+        const engineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.github, answers.role)
+
+        fs.appendFile('employees.json', `\n ${JSON.stringify(engineer)}\n`, (err) => {
+            if (err) throw err;
+            console.log('New manager saved!');
+        });
 
         continuePrompt()
 
@@ -61,8 +69,12 @@ async function mainPrompt() {
 
     if (answers.role === "intern") {
         const internAnswers = await internPrompt();
-        const intern = new Intern(answers.name, answers.id, answers.email, internAnswers.school)
-        console.log(intern);
+        const intern = new Intern(answers.name, answers.id, answers.email, internAnswers.school, answers.role)
+
+        fs.appendFile('employees.json', `\n ${JSON.stringify(intern)}\n`, (err) => {
+            if (err) throw err;
+            console.log('New manager saved!');
+        });
 
         continuePrompt()
 
@@ -130,7 +142,9 @@ async function continuePrompt() {
 }
 
 
-mainPrompt();
+mainPrompt().then(){
+    render();
+}
 
 // and to create objects for each team member (using the correct classes as blueprints!)
 
