@@ -1,3 +1,9 @@
+This was very interesting.  The tests are starting to make sense, but I feel like writing this entire application is DAUNTING.  It's nice when it finally works! I was able to add validation to text fields but failed with checking that a number was entered.  The recorded version has a typo in the prompt, I fixed it after!
+
+
+![demo](Assets//images/demo.gif)
+
+
 # Unit 10 OOP Homework: Template Engine - Employee Summary
 
 One of the most important aspects of programming is writing code that is readable, reliable, and maintainable. Oftentimes, *how* we design our code is just as important as the code itself. In this homework assignment, your challenge is to build a Node CLI that takes in information about employees and generates an HTML webpage that displays summaries for each person. Since testing is a key piece in making code maintainable, you will also be ensuring that all unit tests pass.

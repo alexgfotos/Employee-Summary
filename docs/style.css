@@ -1,0 +1,48 @@
+body {
+    background-color:lightgrey;
+}
+
+.jumbotron {
+    background-image: url("../Assets/images/banner.webp");
+    background-size: cover;
+}
+
+.card {
+    width: 30vw; 
+    background-color: rgb(159, 191, 204, .5);
+    padding: 5px;
+    margin: 5px;
+}
+
+.card-header {
+    height: 25vh;
+    color: white;
+    text-shadow: 3px 1px rgb(0,0,0, .7);
+}
+
+.list-group-item {
+    background-color: rgb(255,255,255, .5);
+}
+
+#myTeam {
+    font-size: 8rem;
+    color: white;
+    text-shadow: 4px 4px rgb(0,0,0, .7);
+}
+
+#managerHeader {
+    background-image: url("../Assets/images/manager.gif");
+    background-size: cover;
+}
+
+#engineerHeader {
+    background-image: url("../Assets/images/engineer.gif");
+    background-size: cover;
+}
+
+#internHeader {
+    background-image: url("../Assets/images/intern.gif");
+    background-size: cover;
+    background-position: bottom;
+}
+

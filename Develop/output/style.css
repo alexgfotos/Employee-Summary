@@ -1,3 +1,7 @@
+body {
+    background-color: black;
+}
+
 .jumbotron {
     background-image: url("../../Assets/images/banner.webp");
     background-size: cover;
