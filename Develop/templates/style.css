@@ -1,0 +1,10 @@
+.jumbotron {
+    background-image: url("../../Assets/images/banner.webp");
+    background-size: cover;
+}
+
+#myTeam {
+    font-size: 8rem;
+    color: white;
+    text-shadow: 4px 4px rgb(0,0,0, .5);
+}

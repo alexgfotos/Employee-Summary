@@ -8,25 +8,38 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
+const employees = [];
 
 // Write code to use inquirer to gather information about the development team members,
+function validateName(name){
+    return name !== '' || "Input is required!";
+}
+
+function validateNum(age)
+{
+   var isValid = !_.isNaN(parseFloat(age));
+   return isValid || "Age should be a number!";}
 
 async function mainPrompt() {
+    
     const answers = await inquirer.prompt([
         {
             type: "input",
-            message: "Who is you?",
-            name: "name"
+            message: "Who what is your name?",
+            name: "name",
+            validate: validateName
         },
         {
             type: "input",
             message: "What is your ID #?",
-            name: "id"
+            name: "id",
+            validate: validateName
         },
         {
             type: "input",
             message: "What is you email?",
-            name: "email"
+            name: "email",
+            validate: validateName
         },
         {
             type: "list",
@@ -37,20 +50,18 @@ async function mainPrompt() {
                 "engineer",
                 "intern"
             ]
+
         }
     ])
-    console.log(answers)
 
+    console.log(answers)
+    // and to create objects for each team member (using the correct classes as blueprints!)
     if (answers.role === "manager") {
         const managerAnswers = await managerPrompt();
         const manager = new Manager(answers.name, answers.id, answers.email, managerAnswers.office, answers.role)
 
-        fs.appendFile('employees.json', `\n ${JSON.stringify(manager)}\n`, (err) => {
-            if (err) throw err;
-            console.log('New manager saved!');
-        });
-
-        continuePrompt()
+        employees.push(manager);
+        continuePrompt();
 
     }
 
@@ -58,10 +69,7 @@ async function mainPrompt() {
         const engineerAnswers = await engineerPrompt();
         const engineer = new Engineer(answers.name, answers.id, answers.email, engineerAnswers.github, answers.role)
 
-        fs.appendFile('employees.json', `\n ${JSON.stringify(engineer)}\n`, (err) => {
-            if (err) throw err;
-            console.log('New manager saved!');
-        });
+        employees.push(engineer);
 
         continuePrompt()
 
@@ -71,10 +79,7 @@ async function mainPrompt() {
         const internAnswers = await internPrompt();
         const intern = new Intern(answers.name, answers.id, answers.email, internAnswers.school, answers.role)
 
-        fs.appendFile('employees.json', `\n ${JSON.stringify(intern)}\n`, (err) => {
-            if (err) throw err;
-            console.log('New manager saved!');
-        });
+        employees.push(intern);
 
         continuePrompt()
 
@@ -88,7 +93,8 @@ async function managerPrompt() {
         {
             type: "input",
             message: "What is your office number?",
-            name: "office"
+            name: "office",
+            validate: validateName
         }
 
     ])
@@ -101,7 +107,8 @@ async function engineerPrompt() {
         {
             type: "input",
             message: "What is your Github username?",
-            name: "github"
+            name: "github",
+            validate: validateName
         }
 
     ])
@@ -114,7 +121,8 @@ async function internPrompt() {
         {
             type: "input",
             message: "Which school do you attend?",
-            name: "school"
+            name: "school",
+            validate: validateName
         }
 
     ])
@@ -132,9 +140,14 @@ async function continuePrompt() {
         }
 
     ])
-
+// After the user has input all employees desired, call the `render` function (required
+// above) and pass in an array containing all employee objects; the `render` function will
+// generate and return a block of HTML including templated divs for each employee!
     if (answers.continue === "no") {
         console.log("byyyyye")
+        console.log(employees);
+        team = render(employees);
+        fs.writeFile(outputPath, team, "utf-8", () => {console.log("file written")});
     }
     else {
         mainPrompt()
@@ -142,18 +155,9 @@ async function continuePrompt() {
 }
 
 
-mainPrompt().then(){
-    render();
-}
-
-// and to create objects for each team member (using the correct classes as blueprints!)
-
-// and to create objects for each team member (using the correct classes as blueprints!)
+mainPrompt()
 
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
