@@ -11,21 +11,21 @@ const render = require("./lib/htmlRenderer");
 const employees = [];
 
 // Write code to use inquirer to gather information about the development team members,
-function validateName(name){
+function validateName(name) {
     return name !== '' || "Input is required!";
 }
 
-function validateNum(age)
-{
-   var isValid = !_.isNaN(parseFloat(age));
-   return isValid || "Age should be a number!";}
+function validateNum(age) {
+    var isValid = !_.isNaN(parseFloat(age));
+    return isValid || "Age should be a number!";
+}
 
 async function mainPrompt() {
-    
+
     const answers = await inquirer.prompt([
         {
             type: "input",
-            message: "Who what is your name?",
+            message: "What is your name?",
             name: "name",
             validate: validateName
         },
@@ -140,14 +140,14 @@ async function continuePrompt() {
         }
 
     ])
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
+    // After the user has input all employees desired, call the `render` function (required
+    // above) and pass in an array containing all employee objects; the `render` function will
+    // generate and return a block of HTML including templated divs for each employee!
     if (answers.continue === "no") {
         console.log("byyyyye")
         console.log(employees);
         team = render(employees);
-        fs.writeFile(outputPath, team, "utf-8", () => {console.log("file written")});
+        fs.writeFile(outputPath, team, "utf-8", () => { console.log("file written") });
     }
     else {
         mainPrompt()
